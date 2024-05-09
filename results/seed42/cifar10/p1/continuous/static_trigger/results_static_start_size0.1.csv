@@ -1,0 +1,9 @@
+dataset,least,most_polarity,seed,epsilon,pos,polarity,trigger_size,trigger_label,loss,optimizer,batch_size,type,epochs,start,end,strobe_gap,strobe_on_duration,trigger_length,random,train_acc,test_acc_clean,test_acc_backdoor
+cifar10,False,False,42,0.1,top-left,1,0.1,0,0.048375220626592635,adam,16,static,10,0,0,0,1,1,False,0.6647777777777778,0.612,0.109
+cifar10,False,False,42,0.1,top-left,1,0.1,0,0.04569828354650073,adam,16,static,10,0,0,0,1,2,False,0.6833333333333333,0.611,0.168
+cifar10,False,False,42,0.1,top-left,1,0.1,0,0.04321771860122681,adam,16,static,10,0,0,0,1,3,False,0.7098888888888889,0.633,0.307
+cifar10,False,False,42,0.1,top-left,1,0.1,0,0.04384463290042347,adam,16,static,10,0,0,0,1,4,False,0.7015555555555556,0.619,0.356
+cifar10,False,False,42,0.1,top-left,1,0.1,0,0.0397433538933595,adam,16,static,10,0,0,0,1,5,False,0.7433333333333333,0.626,0.956
+cifar10,False,False,42,0.1,top-left,1,0.1,0,0.03842619543770949,adam,16,static,10,0,0,0,1,6,False,0.7515555555555555,0.619,1.0
+cifar10,False,False,42,0.1,top-left,1,0.1,0,0.039206252968973586,adam,16,static,10,0,0,0,1,7,False,0.7474444444444445,0.61,0.995
+cifar10,False,False,42,0.1,top-left,1,0.1,0,0.03808306876818339,adam,16,static,10,0,0,0,1,8,False,0.7525555555555555,0.611,1.0

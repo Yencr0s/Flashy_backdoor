@@ -1,0 +1,9 @@
+dataset,least,most_polarity,seed,epsilon,pos,polarity,trigger_size,trigger_label,loss,optimizer,batch_size,type,epochs,start,end,strobe_gap,strobe_on_duration,trigger_length,random,train_acc,test_acc_clean,test_acc_backdoor
+mnist,False,False,42,0.1,top-left,0,0.1,0,0.0007307723396706782,adam,16,flash,10,0,0,0,1,1,False,0.99635,0.9944,1.0
+mnist,False,False,42,0.1,top-left,0,0.1,0,0.0007517392019395175,adam,16,flash,10,0,0,0,1,2,False,0.9963166666666666,0.993,1.0
+mnist,False,False,42,0.1,top-left,0,0.1,0,0.0007645263781787511,adam,16,flash,10,0,0,0,1,3,False,0.9961333333333333,0.9929,1.0
+mnist,False,False,42,0.1,top-left,0,0.1,0,0.0007356565907782548,adam,16,flash,10,0,0,0,1,4,False,0.9962,0.9936,1.0
+mnist,False,False,42,0.1,top-left,0,0.1,0,0.0007409404399008812,adam,16,flash,10,0,0,0,1,5,False,0.99625,0.9936,1.0
+mnist,False,False,42,0.1,top-left,0,0.1,0,0.0007479179833336654,adam,16,flash,10,0,0,0,1,6,False,0.99635,0.9938,1.0
+mnist,False,False,42,0.1,top-left,0,0.1,0,0.0007637209714570721,adam,16,flash,10,0,0,0,1,7,False,0.99605,0.993,1.0
+mnist,False,False,42,0.1,top-left,0,0.1,0,0.0007097702602244832,adam,16,flash,10,0,0,0,1,8,False,0.9963,0.9933,1.0

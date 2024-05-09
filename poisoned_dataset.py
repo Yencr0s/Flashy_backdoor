@@ -74,9 +74,8 @@ class PoisonedDataset(Dataset):
         self.pos = pos
         self.polarity = polarity
         self.n_masks = n_masks
-        
 
-        self.data, self.targets, self.perm = self.add_trigger(
+        self.data, self.targets = self.add_trigger(
             trigger_label, epsilon, mode, attack_type, trigger_size
         )
 
@@ -99,7 +98,8 @@ class PoisonedDataset(Dataset):
         return self.data.shape[2:]
 
     def add_trigger(self, trigger_label, epsilon, mode, type, trigger_size):
-
+        # print('ehhhhhh')
+        # print(np.unique(self.data[0,:,:,:,:]))
         print("[!] Generating " + mode + " Bad Imgs")
 
         new_data = copy.deepcopy(self.data)
@@ -159,16 +159,8 @@ class PoisonedDataset(Dataset):
 
         print(
             f'Injecting Over: Bad Imgs: {len(perm)}. Clean Imgs: {len(new_data)-len(perm)}. Epsilon: {epsilon}')
-        
-        #chech the frequency of the trigger
-        return torch.Tensor(new_data), new_targets, perm
-    
-#ANCHOR - check_frequency
-    def check_frequency(self, strobe_gap, strobe_on_duration, trigger_length):
-        if strobe_gap == 0:
-            return (len(self.perm)*trigger_length)/(self.time_step*len(self.data))
-        else:
-            return (len(self.perm)*((trigger_length//strobe_gap)+1))/(self.time_step*(len(self.data)))
+
+        return torch.Tensor(new_data), new_targets
 
     def create_static_trigger(self, data, size_width, size_height, width, height):
         pos = self.pos
@@ -549,7 +541,12 @@ def create_backdoor_data_loader(args):
                                     start=args.start, end=args.end, strobe_gap=args.strobe_gap, strobe_on_duration=args.strobe_on_duration, trigger_length=args.trigger_length)
 
     frame, label = test_data_tri[0]
-    play_frame(frame, 'backdoor.gif')
+    i=0
+    for frame, label in test_data_ori:
+        print(label.argmax().item())
+        if label.argmax().item()==i:
+            play_frame(frame, f'a{i}.gif')
+            i+=1
 
     train_data_loader = DataLoader(
         dataset=train_data, batch_size=args.batch_size, shuffle=True, num_workers=2)
