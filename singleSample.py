@@ -2,7 +2,7 @@ import torch
 import argparse
 import numpy as np
 from models import get_model
-from poisoned_dataset import create_backdoor_data_loader, create_defense_data_loader
+from poisoned_dataset import create_backdoor_data_loader, create_defense_data_loader, PoisonedDataset
 from utils import loss_picker, optimizer_picker, backdoor_model_trainer, save_experiments, prune_model, fine_tune,evaluate
 from torch.cuda import amp
 from spikingjelly.activation_based import functional, neuron
@@ -150,33 +150,143 @@ def main():
             
         torch.save(model, args.ms)
 
+    # test_data=None
+    # args.start = 6
+    # _, _, test_data_mid = create_backdoor_data_loader(
+    #         args)
+    # test_data = get_dataset(args.dataset, args.T, args.data_dir)
+
+    # test_data_mid = PoisonedDataset(test_data, args.trigger_label, mode='test', epsilon=1,
+    #                                 pos=args.pos, attack_type=args.type, time_step=args.T,
+    #                                 trigger_size=args.trigger_size, dataname=args.dataset,
+    #                                 polarity=args.polarity, n_masks=args.n_masks, least=args.least, most_polarity=args.most_polarity,
+    #                                 start=6, end=args.end, strobe_gap=args.strobe_gap, strobe_on_duration=args.strobe_on_duration, trigger_length=args.trigger_length)
+    
+
+
+    # test_loader_mid = DataLoader(
+    #     dataset=test_data_mid, batch_size=16, shuffle=False, num_workers=2)
+
+
+    # model.eval()
+    # test_loss = 0
+    # test_acc = 0
+    # test_samples = 0
+    # with torch.no_grad():
+    #     # for frame, label in tqdm(test_loader):
+    #     for frame, label in test_data_mid:
+    #         frame = frame.to(device)
+    #         # [N, T, C, H, W] -> [T, N, C, H, W]
+    #         frame = frame.transpose(0, 1)
+
+    #         label = torch.full_like(label, 7)
+
+    #         label = label.to(device)
+    #         # label_onehot = F.one_hot(label, 11).float()
+    #         out_fr = model(frame).mean(0)
+
+    #         loss = criterion(out_fr, label)
+
+    #         label = label.argmax(1)
+    #         test_samples += label.numel()
+    #         test_loss += loss.item() * label.numel()
+    #         test_acc += (out_fr.argmax(1) == label).float().sum().item()
+            
+
+
+    #         functional.reset_net(model)
+
+    # test_loss /= test_samples
+    # test_acc /= test_samples
+    
+    # print('mid',test_acc)
+
+
+
+    # args.start = 13
+    # _, _, test_data_end = create_backdoor_data_loader(
+    #         args)
+
+    # # test_data_end = PoisonedDataset(test_data, args.trigger_label, mode='test', epsilon=1,
+    # #                                 pos=args.pos, attack_type=args.type, time_step=args.T,
+    # #                                 trigger_size=args.trigger_size, dataname=args.dataset,
+    # #                                 polarity=args.polarity, n_masks=args.n_masks, least=args.least, most_polarity=args.most_polarity,
+    # #                                 start=13, end=args.end, strobe_gap=args.strobe_gap, strobe_on_duration=args.strobe_on_duration, trigger_length=args.trigger_length)
+
+    # # test_loader_end = DataLoader(
+    # #     dataset=test_data_end, batch_size=16, shuffle=False, num_workers=2)
+
+    # test_loss = 0
+    # test_acc = 0
+    # test_samples = 0
+
+    # with torch.no_grad():
+    #     # for frame, label in tqdm(test_loader):
+    #     for frame, label in test_data_end:
+    #         frame = frame.to(device)
+    #         # [N, T, C, H, W] -> [T, N, C, H, W]
+    #         frame = frame.transpose(0, 1)
+
+    #         label = torch.full_like(label, 7)
+
+    #         label = label.to(device)
+    #         # label_onehot = F.one_hot(label, 11).float()
+    #         out_fr = model(frame).mean(0)
+
+    #         loss = criterion(out_fr, label)
+
+    #         label = label.argmax(1)
+    #         test_samples += label.numel()
+    #         test_loss += loss.item() * label.numel()
+    #         test_acc += (out_fr.argmax(1) == label).float().sum().item()
+            
+
+
+    #         functional.reset_net(model)
+
+    # test_loss /= test_samples
+    # test_acc /= test_samples
+    
+    # print('end',test_acc)
+
+
+
+
+
+
+
+
+
+
+
+
     test_data=None
     test_data = get_dataset2(args.dataset, args.T, args.data_dir)
     print(len(test_data))
 
-    # i=0
+    i=0
 
-    # for frame,label in test_data:
+    for frame,label in test_data:
         
-    #                 # We need the images loaded instead of the paths
-    #     # frame = np.array([np.array(x[0]) for x in test_data])[0]
-    #     play_frame(frame, f'{i}.gif')
-    #     i+=1
-    #     frame = torch.tensor(frame).to(device)
-    #     frame = frame.unsqueeze(0)
-    #                 # [N, T, C, H, W] -> [T, N, C, H, W]
-    #     frame = frame.transpose(0, 1)
-    #     # label = torch.tensor(label).to(device)
-    #     # label_onehot = F.one_hot(label, 11).float()
-    #     out_fr = model(frame).mean(0)
+                    # We need the images loaded instead of the paths
+        # frame = np.array([np.array(x[0]) for x in test_data])[0]
+        play_frame(frame, f'{i}.gif')
+        i+=1
+        frame = torch.tensor(frame).to(device)
+        frame = frame.unsqueeze(0)
+                    # [N, T, C, H, W] -> [T, N, C, H, W]
+        frame = frame.transpose(0, 1)
+        # label = torch.tensor(label).to(device)
+        # label_onehot = F.one_hot(label, 11).float()
+        out_fr = model(frame).mean(0)
 
-    #     frame=frame.to('cpu')
-    #     # label=label.to('cpu')
-    #     out_fr=out_fr.to('cpu')
-    #     print('res', label, out_fr.argmax().item(), out_fr)
-    #     gc.collect()
-    #     torch.cuda.empty_cache()
-
+        frame=frame.to('cpu')
+        # label=label.to('cpu')
+        out_fr=out_fr.to('cpu')
+        print('res', label, out_fr.argmax().item(), out_fr)
+        gc.collect()
+        torch.cuda.empty_cache()
+    args.epsilon = 0
     test_loader = DataLoader(
         dataset=test_data, batch_size=6, shuffle=False, num_workers=2)
 
@@ -184,32 +294,32 @@ def main():
     test_loss = 0
     test_acc = 0
     test_samples = 0
-    with torch.no_grad():
-        # for frame, label in tqdm(test_loader):
-        for frame, label in test_loader:
-            frame = frame.to(device)
-            # [N, T, C, H, W] -> [T, N, C, H, W]
-            frame = frame.transpose(0, 1)
+    # with torch.no_grad():
+    #     # for frame, label in tqdm(test_loader):
+    #     for frame, label in test_loader:
+    #         frame = frame.to(device)
+    #         # [N, T, C, H, W] -> [T, N, C, H, W]
+    #         frame = frame.transpose(0, 1)
 
-            label = torch.full_like(label, 7)
+    #         label = torch.full_like(label, 7)
 
-            label = label.to(device)
-            label_onehot = F.one_hot(label, 11).float()
-            out_fr = model(frame).mean(0)
+    #         label = label.to(device)
+    #         label_onehot = F.one_hot(label, 11).float()
+    #         out_fr = model(frame).mean(0)
 
-            loss = criterion(out_fr, label_onehot)
+    #         loss = criterion(out_fr, label_onehot)
 
-            label = label_onehot.argmax(1)
-            test_samples += label.numel()
-            test_loss += loss.item() * label.numel()
-            test_acc += (out_fr.argmax(1) == label).float().sum().item()
+    #         label = label_onehot.argmax(1)
+    #         test_samples += label.numel()
+    #         test_loss += loss.item() * label.numel()
+    #         test_acc += (out_fr.argmax(1) == label).float().sum().item()
             
 
 
-            functional.reset_net(model)
+    #         functional.reset_net(model)
 
-    test_loss /= test_samples
-    test_acc /= test_samples
+    # test_loss /= test_samples
+    # test_acc /= test_samples
     
     print(test_acc)
 
