@@ -10,7 +10,7 @@ import random
 import cupy
 import copy
 from spikingjelly.activation_based import monitor, neuron, functional, layer, tensor_cache
-from visuals import *
+from visualspre import *
 
 import sys
 import torch.nn.functional as F
@@ -34,7 +34,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', type=str,
                     default='gesture', help='Dataset to use')
 parser.add_argument('--lr', type=float, default=0.001, help='Learning rate')
-parser.add_argument('--batch_size', type=int, default=16, help='Batch size')
+parser.add_argument('--batch_size', type=int, default=1, help='Batch size')
 parser.add_argument('--epochs', type=int, default=10, help='Number of epochs')
 parser.add_argument('--T', default=16, type=int,
                     help='simulating time-steps')
@@ -120,7 +120,7 @@ def main():
 
     # Set the device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(device)
+    #print(device)
 
     # Load the model
     model = get_model(args.dataset, args.T)
@@ -159,7 +159,20 @@ def main():
     
 
     test_data = get_dataset2(args.dataset, args.T, args.data_dir)
-    test_loader = DataLoader(dataset=test_data, batch_size=6, shuffle=False, num_workers=5)
+
+    # test_data_tri = PoisonedDataset(test_data, 7, mode='test', epsilon=1.0,
+    #                                 pos=args.pos, attack_type=args.type, time_step=args.T,
+    #                                 trigger_size=1.0, dataname=args.dataset,
+    #                                 polarity=3, n_masks=args.n_masks, least=args.least, most_polarity=args.most_polarity,
+    #                                 start=0, end=args.end, strobe_gap=1, strobe_on_duration=args.strobe_on_duration, trigger_length=3)
+
+
+    test_loader = DataLoader(dataset=test_data, batch_size=1, shuffle=False, num_workers=5)
+
+
+    # _, clean_testloader, poison_testloader = create_backdoor_data_loader(
+    #         args)
+
 
     # Define target layer (last convolutional layer in ResNet)
     target_layer = None
@@ -174,10 +187,15 @@ def main():
     # input_image = torch.randn(1, 16, 2, 128, 128, requires_grad=True).to(device)  # Example shape
     i=0
     for frame, label in tqdm(test_loader):
+        if i ==3:
+            frame = frame.to(device)
+            print(label)
+            # play_frame(frame[0], 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.gif')
 
-        frame = frame.to(device)
-        # frame = frame.transpose(0, 1)  # [N, T, C, H, W] -> [T, N, C, H, W]
-        break
+            frame = frame.transpose(0, 1)  # [N, T, C, H, W] -> [T, N, C, H, W]
+
+            break
+        i+=1
 
     input_image=frame
 
@@ -197,7 +215,7 @@ def main():
     #     # Create GIF from saved frames
     #     create_gif(images, f'layer{i}.gif', duration=0.5)
     images = []
-    cam = grad_cam.generate_cam(input_image, class_idx=7,layer=4)
+    cam = grad_cam.generate_cam(input_image, class_idx=0,layer=3,maxed=False)
 
     # Save the CAM image for a specific frame
 
@@ -206,45 +224,54 @@ def main():
         images.append(combined_image)
 
     # Create GIF from saved frames
-    create_gif(images, 'layer4_7.gif', duration=0.1)
+    create_gif(images, 'base_model_c0_l4.gif', duration=0.1)
+
+    # create_gif(images, 'trigger_model_c0_l1.gif', duration=0.1)
 
 # Function to create GIF from frames
 def create_gif(images, file_name, duration=0.05):
-    imageio.mimsave(file_name, images, duration=duration, loop=0)
+    imageio.mimsave(file_name, images, fps=3, loop=0)
 
 def save_cam_image(cam2, input_image, frame_idx, file_name):
     # Ensure the cam tensor is aligned with the input image dimensions
     cam = cam2[frame_idx]
-    # print('camshape0',cam.shape)
+
+    cam = np.expand_dims(cam, axis=0)  # Add channel dimension
+
+    cam = np.repeat(cam, input_image.shape[2], axis=0)  # Repeat over the number of channels
+
     cam = np.expand_dims(cam, axis=(0, 1))  # Add batch and frame dimensions
-    # print('camshape1',cam.shape)
-    cam = np.repeat(cam, input_image.shape[1], axis=1)  # Repeat over the number of channels
-    # print('camshape2',cam.shape)
+
     cam = np.repeat(cam, input_image.shape[3]/cam.shape[3], axis=3)  # Repeat over the height
-    # print('camshape3',cam.shape)
+
     cam = np.repeat(cam, input_image.shape[4]/cam.shape[4], axis=4)  # Repeat over the width
-    # print('camshape4',cam.shape)
+
 
     # Normalize cam to [0, 1]
+    # cam = cam / np.max(cam)
+    
     cam = (cam - np.min(cam)) / (np.max(cam) - np.min(cam))
     cam = (cam * 255).astype(np.uint8)  # Scale to [0, 255]
 
     # Normalize input_image to [0, 1] and scale to [0, 255]
-    input_image = input_image[0, frame_idx, :, :, :]
+    input_image = input_image[frame_idx, 0, :, :, :]
+    # print('a',input_image.shape)
+    input_image[0] += input_image[1]
     # input_image = (input_image - np.min(input_image)) / (np.max(input_image) - np.min(input_image))
     input_image = (input_image * 255).astype(np.uint8)  # Scale to [0, 255]
 
-    # print('inputimage',input_image.shape)
+    # #print('inputimage',input_image.shape)
     # Apply colormaps
     cmap_cam = get_cmap('inferno')
     cmap_input = get_cmap('gray')
-    # print(cam.shape)
-    cam_colored = cmap_cam(cam[0, frame_idx, 0, :, :])[:, :,:3]  # Apply colormap on cam
-    # print('asdf',cam_colored.shape)
+    # #print(cam.shape)
+    #print(cam.shape)
+    cam_colored = cmap_cam(cam[0, 0, 0, :, :])[:, :,:3]  # Apply colormap on cam
+    # #print('asdf',cam_colored.shape)
     input_colored = cmap_input(input_image[0, :, :])[:, :, :3]  # Apply colormap on input image
-    # print('asdf2',input_colored.shape)
+    # #print('asdf2',input_colored.shape)
     # Combine the two images
-    combined_image = 0.5 * cam_colored + 0.5 * input_colored
+    combined_image = 0.75 * cam_colored + 0.25 * input_colored
     combined_image = (combined_image * 255).astype(np.uint8)  # Convert to RGB format
 
     # Save the combined image
@@ -263,8 +290,8 @@ def save_cam_image(cam2, input_image, frame_idx, file_name):
     #     # Convert labels to one-hot encoding for loss computation
     #     one_hot = F.one_hot(target_class, num_classes=11).float().to(device)
 
-    #     print(frame.shape)
-    #     print(one_hot)
+    #     #print(frame.shape)
+    #     #print(one_hot)
 
     #     # Generate and save Grad-CAM for the sequence
     #     target_classes = one_hot.to(torch.long)  # Ensure target_classes is of type Long
@@ -276,8 +303,8 @@ def save_cam_image(cam2, input_image, frame_idx, file_name):
     #     functional.reset_net(model)
     #     break
 
-    # print(f"Test Accuracy: {test_acc:.4f}")
-    # print(f"Test Loss: {test_loss:.4f}")
+    # #print(f"Test Accuracy: {test_acc:.4f}")
+    # #print(f"Test Loss: {test_loss:.4f}")
 
 if __name__ == '__main__':
     main()
