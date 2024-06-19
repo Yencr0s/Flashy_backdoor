@@ -30,7 +30,7 @@ parser.add_argument('--loss', type=str, default='mse',
 parser.add_argument('--optim', type=str, default='adam',
                     help='Optimizer', choices=['adam', 'sgd'])
 # Trigger related parameters
-parser.add_argument('--trigger_label', default=0, type=int,
+parser.add_argument('--trigger_label', default=7, type=int,
                     help='The index of the trigger label')
 parser.add_argument('--polarity', default=0, type=int,
                     help='The polarity of the trigger', choices=[0, 1, 2, 3])
@@ -94,6 +94,12 @@ parser.add_argument('--fine_tune_epochs', type=int, default=10, help='Number of 
 # parser.add_argument('--fine_prune', type=bool, default=False, help='Fine tune the model after pruning')
 parser.add_argument('--fine_prune', action = 'store_true', default=False)
 
+parser.add_argument('--ms', type=str, default='model.pth')
+parser.add_argument('--msf', type=str, default='modeltune.pth')
+parser.add_argument('--msp', type=str, default='modelprune.pth')
+parser.add_argument('--msfp', type=str, default='modelprunetune.pth')
+
+
 args = parser.parse_args()
 
 
@@ -128,13 +134,17 @@ def main():
     if args.amp:
         scaler = amp.GradScaler()
 
-    poison_trainloader, clean_testloader, poison_testloader = create_backdoor_data_loader(
-        args)
+    if args.model_path is None:
+        poison_trainloader, clean_testloader, poison_testloader = create_backdoor_data_loader(
+            args)
 
-    list_train_loss, list_train_acc, list_test_loss, list_test_acc, list_test_loss_backdoor, list_test_acc_backdoor, bd_model = backdoor_model_trainer(
-        model, criterion, optimizer, args.epochs, poison_trainloader, clean_testloader,
-        poison_testloader, device, scaler, scheduler)
-        
+        list_train_loss, list_train_acc, list_test_loss, list_test_acc, list_test_loss_backdoor, list_test_acc_backdoor, bd_model = backdoor_model_trainer(
+            model, criterion, optimizer, args.epochs, poison_trainloader, clean_testloader,
+            poison_testloader, device, scaler, scheduler)
+        torch.save(model,args.ms)
+    else:
+        bd_model = copy.deepcopy(model)
+            
 
 
     prune_test_acc_clean, prune_test_acc_backdoor, tune_list_test_acc, tune_list_test_acc_backdoor, fine_list_test_acc, fine_list_test_acc_backdoor = [],[],[],[],[],[]
@@ -147,21 +157,28 @@ def main():
         if args.prune:
             prune_test_loss_clean, prune_test_acc_clean, prune_test_loss_backdoor, prune_test_acc_backdoor, pruned_model = prune_model(
                 copy.deepcopy(bd_model), criterion, clean_testloader2, poison_testloader2, device, args.acc_drop)
+            torch.save(pruned_model,args.msp)
         if args.fine_tune:
             #fine tune the model
-            tune_list_train_loss, tune_list_train_acc, tune_list_test_loss, tune_list_test_acc, tune_list_test_loss_backdoor, tune_list_test_acc_backdoor = fine_tune(copy.deepcopy(bd_model), criterion, optimizer, 
-                args.fine_tune_epochs, clean_trainloader, clean_testloader2, poison_testloader2, device, scaler, scheduler) 
+            tune_list_train_loss, tune_list_train_acc, tune_list_test_loss, tune_list_test_acc, tune_list_test_loss_backdoor, tune_list_test_acc_backdoor, fine_model = fine_tune(copy.deepcopy(bd_model), criterion, optimizer, 
+                args.fine_tune_epochs, clean_trainloader, clean_testloader2, poison_testloader2, device, scaler, scheduler)
+            torch.save(fine_model, args.msf)
         if args.fine_prune:
             if not args.prune:
                 fine_test_loss_clean, fine_test_acc_clean, fine_test_loss_backdoor, fine_test_acc_backdoor, pruned_model = prune_model(
                     copy.deepcopy(bd_model), criterion, clean_testloader2, poison_testloader2, device, args.acc_drop)   
 
-            fine_list_train_loss, fine_list_train_acc, fine_list_test_loss, fine_list_test_acc, fine_list_test_loss_backdoor, fine_list_test_acc_backdoor = fine_tune(copy.deepcopy(pruned_model), criterion, optimizer, 
+            fine_list_train_loss, fine_list_train_acc, fine_list_test_loss, fine_list_test_acc, fine_list_test_loss_backdoor, fine_list_test_acc_backdoor, fineprune_model = fine_tune(copy.deepcopy(pruned_model), criterion, optimizer, 
                 args.fine_tune_epochs, clean_trainloader, clean_testloader2, poison_testloader2, device, scaler, scheduler)
+            
+            torch.save(fineprune_model,args.msfp)
+            
     # Save the results
     save_experiments(args, list_train_acc, list_train_loss, list_test_acc, list_test_loss, list_test_acc_backdoor,
                      list_test_loss_backdoor, model, prune_test_acc_clean, prune_test_acc_backdoor,
                      tune_list_test_acc, tune_list_test_acc_backdoor, fine_list_test_acc, fine_list_test_acc_backdoor)
+
+        
 
 if __name__ == '__main__':
     main()
