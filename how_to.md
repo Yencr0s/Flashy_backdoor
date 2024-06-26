@@ -47,30 +47,20 @@ mkdir data/gesture
 
 And put the dataset (`.gz` file) in it.
 
-### N-Caltech101
-
-N-Caltech101 **cannot** be downloaded automatically. You have to download it from [here](https://www.garrickorchard.com/datasets/n-caltech101).
-Then, create a folder with the name `caltech` in the `data` folder and put the downloaded files in it.
-
-```bash
-mkdir data/caltech
-```
-
-And put the dataset (`.zip` file) in it.
 
 ## Hardware requirements
 
 In order to run the code a GPU is strongly recommended. 
-The code is tested on a machine with 1 NVIDIA A100 GPUs with 40GB.
+The code is tested on a machine with 1/2 NVIDIA A100 GPU with 20GB.
 
 ## Reading the results
 
 After execution, the results are saved in a `.csv` file in the `experiments/` folder.
-The `.csv` file will contain all the execution parameters and the results of the attack, i.e., clean accuracy and backdoor accuracy.
+The `.csv` file will contain all the execution parameters and the results of the attack.
 
 ## Examples
 
-Script examples for different datasets are provided in the `scripts/` folder. 
+Script examples for different datasets and attacks are provided in the `scripts/` folder. 
 
 Get help:
 ```bash
@@ -79,9 +69,11 @@ python main.py --help
 usage: main.py [-h] [--dataset DATASET] [--lr LR] [--batch_size BATCH_SIZE] [--epochs EPOCHS] [--T T]
                [--amp] [--cupy] [--loss {mse,cross}] [--optim {adam,sgd}] [--trigger_label TRIGGER_LABEL]
                [--polarity {0,1,2,3}] [--trigger_size TRIGGER_SIZE] [--epsilon EPSILON]
-               [--pos {top-left,top-right,bottom-left,bottom-right,middle,random}] [--type {static,moving,smart}]
-               [--n_masks N_MASKS] [--least] [--most_polarity] [--momentum MOMENTUM] [--data_dir DATA_DIR]
-               [--save_path SAVE_PATH] [--model_path MODEL_PATH] [--seed SEED]
+               [--pos {top-left,top-right,bottom-left,bottom-right,middle,random}] [--type {static,flash}]
+               [--momentum MOMENTUM] [--data_dir DATA_DIR] [--start] [--save_path SAVE_PATH]
+               [--model_path MODEL_PATH] [--seed SEED] [--start] [--end] [--strobe_gap]
+               [--strobe_on_duration] [--trigger_length] [--save_name] [--defend] [--prune_rate]
+               [--fine_tune] [--fine_prune] [fine_tune_epochs]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -103,81 +95,61 @@ optional arguments:
   --epsilon EPSILON     The percentage of poisoned data
   --pos {top-left,top-right,bottom-left,bottom-right,middle,random}
                         The position of the trigger
-  --type {static,moving,smart}
+  --type {static,flash}
                         The type of the trigger
-  --n_masks N_MASKS     The number of masks. Only if the trigger type is smart
-  --least               Use least active area for smart attack
-  --most_polarity       Use most active polarity in the area for smart attack
-  --momentum MOMENTUM   Momentum
   --data_dir DATA_DIR   Data directory
   --save_path SAVE_PATH
                         Path to save the experiments
   --model_path MODEL_PATH
                         Use a pretrained model
   --seed SEED           Random seed
+  --start START         Frame index to start the trigger
+  --end END             Frame indes to stop the trigger
+  --strobe_gap GAP      Gap between the consecutive trigger frames
+  --strobe_on_duration DURATION
+                        Duration of the trigger before a gap
+  --trigger_length LENGTH
+                        Duration of the trigger, if 0, then it applies to all the frames
+  --save_name NAME      Name of the saved CSV
+  --defend              Indicates that the defenses will apply
+  --prune               Performing the pruning
+  --prune_rate RATE     Percentage of the pruned neurons (0-1)
+  --fine_tune           Performing fine-tuning with a clean dataset
+  --fine_prune          Performing fine-tuning after the pruning
+  --fine_tune_epochs EPOCHS
+                        Number of epochs to fine-tune
 
 ```
 
-## Static Triggers
+## Framed Triggers
 
-Example of running a static trigger attack on N-MNIST dataset, in the top-left corner, with 10% of the data poisoned, polarity 1, with the trigger size of 10% of the image size:
+Example of running a framed trigger attack on N-MNIST dataset, in the top-left corner, with 10% of the data poisoned, polarity 3, with the trigger size of 20% of the image size, with a trigger length of 3 and starting in the 4th frame:
 
 ```bash	
-python main.py --dataset mnist --polarity 1 --pos top-left --trigger_size 0.1 --epsilon 0.1 --type static --cupy --epochs 10
+python main.py --dataset mnist --polarity 3 --pos top-left --trigger_size 0.2 --epsilon 0.1 --type static --cupy --seed 43 --epochs 20 --start 4 --trigger_length 3
 ```
 
-## Moving Triggers
+## Strobing Triggers
 
-Example of running a moving trigger attack on N-MNIST dataset, in the top-left corner, with 10% of the data poisoned, polarity 1, with the trigger size of 10% of the image size:
+Example of running a strobing trigger attack on N-MNIST dataset, in the top-left corner, with 10% of the data poisoned, polarity 3, with the trigger size of 20% of the image size, with a trigger length of 3, a gap of 2 clean frames and 3 continuous triggered frame each time, starting in the 4th frame:
 
-```bash
-python main.py --dataset mnist --polarity 1 --pos top-left --trigger_size 0.1 --epsilon 0.1 --type moving --cupy --epochs 10
+```bash	
+python main.py --dataset mnist --polarity 3 --pos top-left --trigger_size 0.2 --epsilon 0.1 --type static --cupy --seed 43 --epochs 20 --start 4 --trigger_length 3 --strobe_gap 2 --strobe_on_duration 3 
 ```
 
-## Smart Triggers
+## Flashy Triggers
 
-Example of running a smart trigger attack on N-MNIST dataset, in the the least important area, with 10% of the data poisoned, with the trigger size of 10% of the image size:
+Example of running a flashy trigger attack on N-MNIST dataset, in the top-left corner, with 10% of the data poisoned, polarity 3, with a trigger length of 3, a gap of 2 clean frames and 3 continuous triggered frame each time, starting in the 4th frame:
 
-```bash
-python main.py --dataset mnist --trigger_size 0.1 --epsilon 0.1 --type smart --least --cupy --epochs 10 
+```bash	
+python main.py --dataset mnist --polarity 3 --pos top-left --epsilon 0.1 --type flash --cupy --seed 43 --epochs 20 --start 4 --trigger_length 3 --strobe_gap 2 --strobe_on_duration 3 
 ```
 
-## Dynamic Triggers
+## Defense
 
-Get help:
-```bash
-usage: dynamic.py [-h] [--dataset DATASET] [--lr LR] [--batch_size BATCH_SIZE] [--epochs EPOCHS]
-                  [--train_epochs TRAIN_EPOCHS] [--T T] [--amp] [--cupy] [--loss {mse,cross}] [--optim {adam,sgd}]
-                  [--trigger_label TRIGGER_LABEL] [--momentum MOMENTUM] [--alpha ALPHA] [--beta BETA]
-                  [--data_dir DATA_DIR] [--save_path SAVE_PATH] [--seed SEED]
+Example of running a flashy attack on N-MNIST dataset, in the top-left corner, with 10% of the data poisoned, polarity 3, with a trigger length of 3, a gap of 2 clean frames and 3 continuous triggered frame each time, starting in the 4th frame. Applying the fine-pruning defense with 80% pruning rate and 8 epochs of fine-tunning:
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --dataset DATASET     Dataset to use
-  --lr LR               Learning rate
-  --batch_size BATCH_SIZE
-                        Batch size
-  --epochs EPOCHS       Number of epochs
-  --train_epochs TRAIN_EPOCHS
-                        Number of epochs
-  --T T                 simulating time-steps
-  --amp                 Use automatic mixed precision training
-  --cupy                Use cupy
-  --loss {mse,cross}    Loss function
-  --optim {adam,sgd}    Optimizer
-  --trigger_label TRIGGER_LABEL
-                        The index of the trigger label
-  --momentum MOMENTUM   Momentum
-  --alpha ALPHA         Alpha
-  --beta BETA           Beta. Gamma in the paper
-  --data_dir DATA_DIR   Data directory
-  --save_path SAVE_PATH
-                        Path to save the experiments
-  --seed SEED           Random seed
+```bash	
+python main.py --dataset mnist --polarity 3 --pos top-left --epsilon 0.1 --type flash --cupy --seed 43 --epochs 20 --start 4 --trigger_length 3 --strobe_gap 2 --strobe_on_duration 3 --defend --prune --acc_drop 0.8 --fine_tune --fine_prune --fine_tune_epochs 8
 ```
 
-Example of running a dynamic trigger attack on N-MNIST dataset:
-
-```bash
-python dynamic.py --dataset mnist --cupy --epochs 10 --train_epochs 1 --alpha 0.5 --beta 0.01
-```
