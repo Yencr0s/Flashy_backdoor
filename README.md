@@ -20,6 +20,23 @@ A guide to the code is available [here](how_to.md).
 | ![clean image](./figures/clean_real.gif) 	|  ![flashlight](./figures/flashlight.gif) | ![laser_pointer](./figures/laser.gif) 	|
 
 
+## GradCam samples
+### Clean model
+|      Sample          |      Target class         |      Layer 1         |       Layer 2          |       Layer 3          |       Layer 4          |
+|------------------	|--- |---	|---	|---	|---	|
+|   Clean 	  |   Real 	      |  ![clean](./figures/flashlight.gif) | ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	|
+|   Clean 	  |   Backdoor 	  |  ![clean](./figures/flashlight.gif) | ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	|
+|   Poisoned 	|   Real 	      |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |
+|   Poisoned 	|   Backdoor 	  |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |
+
+
+
+
+### Backdoored model
+|      Sample          |      Layer 1         |       Layer 2          |       Layer 3          |       Layer 4          |
+|------------------	|---	|---	|---	|---	|
+|   Clean 	  |  ![clean](./figures/flashlight.gif) | ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	|
+|   Poisoned 	|  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |
 
 
 ## Authors
