@@ -24,19 +24,21 @@ A guide to the code is available [here](how_to.md).
 ### Clean model
 |      Sample          |      Target class         |      Layer 1         |       Layer 2          |       Layer 3          |       Layer 4          |
 |------------------	|--- |---	|---	|---	|---	|
-|   Clean 	  |   Real 	      |  ![clean](./figures/flashlight.gif) | ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	|
-|   Clean 	  |   Backdoor 	  |  ![clean](./figures/flashlight.gif) | ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	|
-|   Poisoned 	|   Real 	      |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |
-|   Poisoned 	|   Backdoor 	  |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |
+|   Clean 	  |   Real 	      |  ![clean](./figures/GradCam/no_clean_c0_l1.gif) | ![clean](./figures/GradCam/no_clean_c0_l2.gif) 	| ![clean](./figures/GradCam/no_clean_c0_l3.gif) 	| ![clean](./figures/GradCam/no_clean_c0_l4.gif) 	|
+|   Clean 	  |   Backdoor 	  |  ![clean](./figures/GradCam/no_clean_c7_l1.gif) | ![clean](./figures/GradCam/no_clean_c7_l2.gif) 	| ![clean](./figures/GradCam/no_clean_c7_l3.gif) 	| ![clean](./figures/GradCam/no_clean_c7_l4.gif) 	|
+|   Poisoned 	|   Real 	      |  ![clean](./figures/GradCam/start_clean_c0_l1.gif) | ![clean](./figures/GradCam/start_clean_c0_l2.gif) 	| ![clean](./figures/GradCam/start_clean_c0_l3.gif) 	| ![clean](./figures/GradCam/start_clean_c0_l4.gif) 	|
+|   Poisoned 	|   Backdoor 	  |  ![clean](./figures/GradCam/start_clean_c7_l1.gif) | ![clean](./figures/GradCam/start_clean_c7_l2.gif) 	| ![clean](./figures/GradCam/start_clean_c7_l3.gif) 	| ![clean](./figures/GradCam/start_clean_c7_l4.gif) 	|
 
 
 
 
 ### Backdoored model
-|      Sample          |      Layer 1         |       Layer 2          |       Layer 3          |       Layer 4          |
-|------------------	|---	|---	|---	|---	|
-|   Clean 	  |  ![clean](./figures/flashlight.gif) | ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	| ![clean](./figures/laser.gif) 	|
-|   Poisoned 	|  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |  ![poisoned](./figures/flashlight.gif) |
+|      Sample          |      Target class         |      Layer 1         |       Layer 2          |       Layer 3          |       Layer 4          |
+|------------------	|--- |---	|---	|---	|---	|
+|   Clean 	  |   Real 	      |  ![clean](./figures/GradCam/no_trigger_c0_l1.gif) | ![clean](./figures/GradCam/no_trigger_c0_l2.gif) 	| ![clean](./figures/GradCam/no_trigger_c0_l3.gif) 	| ![clean](./figures/GradCam/no_trigger_c0_l4.gif) 	|
+|   Clean 	  |   Backdoor 	  |  ![clean](./figures/GradCam/no_trigger_c7_l1.gif) | ![clean](./figures/GradCam/no_trigger_c7_l2.gif) 	| ![clean](./figures/GradCam/no_trigger_c7_l3.gif) 	| ![clean](./figures/GradCam/no_trigger_c7_l4.gif) 	|
+|   Poisoned 	|   Real 	      |  ![clean](./figures/GradCam/start_trigger_c0_l1.gif) | ![clean](./figures/GradCam/start_trigger_c0_l2.gif) 	| ![clean](./figures/GradCam/start_trigger_c0_l3.gif) 	| ![clean](./figures/GradCam/start_trigger_c0_l4.gif) 	|
+|   Poisoned 	|   Backdoor 	  |  ![clean](./figures/GradCam/start_trigger_c7_l1.gif) | ![clean](./figures/GradCam/start_trigger_c7_l2.gif) 	| ![clean](./figures/GradCam/start_trigger_c7_l3.gif) 	| ![clean](./figures/GradCam/start_trigger_c7_l4.gif) 	|
 
 
 ## Authors
