@@ -17,7 +17,7 @@ A guide to the code is available [here](how_to.md).
 
 |       Clean           |      Flashlight Trigger         |       Laser Pointer Trigger          |
 |------------------	|---	|---	|
-| ![clean image](./figures/clean?real.gif) 	|  ![flashlight](./figures/flashlight.gif) | ![laser_pointer](./figures/laser.gif) 	|
+| ![clean image](./figures/clean_real.gif) 	|  ![flashlight](./figures/flashlight.gif) | ![laser_pointer](./figures/laser.gif) 	|
 
 
 
