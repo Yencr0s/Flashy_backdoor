@@ -6,13 +6,25 @@ A guide to the code is available [here](how_to.md).
 
 ## Examples
 ### Static triggers
+|      Polarity 0        |      Polarity 1          |      Polarity 2          |      Polarity 3          |
+|---	|---	|---	|---	|
+|![static](./figures/static_0.gif) | ![static](./figures/static_1.gif) 	| ![static](./figures/static_2.gif) 	| ![static](./figures/static_full.gif) 	|
+
+
 
 ### Framed triggers
+|      Polarity 0        |      Polarity 1          |      Polarity 2          |      Polarity 3          |
+|---	|---	|---	|---	|
+|![static](./figures/framed_0.gif) | ![static](./figures/framed_1.gif) 	| ![static](./figures/framed_2.gif) 	| ![static](./figures/framed.gif) 	|
 
 ### Strobing triggers
-
+|      Polarity 0        |      Polarity 1          |      Polarity 2          |      Polarity 3          |
+|---	|---	|---	|---	|
+|![static](./figures/strobe_0.gif) | ![static](./figures/strobe_1.gif) 	| ![static](./figures/strobe_2.gif) 	| ![static](./figures/strobing.gif) 	|
 ### Flashy triggers
-
+|      Polarity 0        |      Polarity 1          |      Polarity 2          |      Polarity 3          |
+|---	|---	|---	|---	|
+|![static](./figures/flash_0.gif) | ![static](./figures/flash_1.gif) 	| ![static](./figures/flash_2.gif) 	| ![static](./figures/flash.gif) 	|
 #### Physical environment
 
 |       Clean           |      Flashlight Trigger         |       Laser Pointer Trigger          |
