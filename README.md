@@ -10,8 +10,6 @@ A guide to the code is available [here](how_to.md).
 |---	|---	|---	|---	|
 |![static](./figures/static_0.gif) | ![static](./figures/static_1.gif) 	| ![static](./figures/static_2.gif) 	| ![static](./figures/static_full.gif) 	|
 
-
-
 ### Framed triggers
 |      Polarity 0        |      Polarity 1          |      Polarity 2          |      Polarity 3          |
 |---	|---	|---	|---	|
