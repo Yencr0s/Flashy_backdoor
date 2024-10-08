@@ -51,11 +51,6 @@ A guide to the code is available [here](how_to.md).
 |   Poisoned 	|   Backdoor 	  |  ![clean](./figures/GradCam/start_trigger_c7_l1.gif) | ![clean](./figures/GradCam/start_trigger_c7_l2.gif) 	| ![clean](./figures/GradCam/start_trigger_c7_l3.gif) 	| ![clean](./figures/GradCam/start_trigger_c7_l4.gif) 	|
 
 
-## Authors
-
-Roberto Riaño, Gorka Abad, and Ekaitz Jauregi.
-
-
 
 ## License
 
