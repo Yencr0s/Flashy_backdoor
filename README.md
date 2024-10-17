@@ -1,6 +1,6 @@
 # Flashy-backdoor
 
-Code for the master's thesis Flashy Backdoor: Real-World Environment Backdoor Attack on SNNs with DVS cameras.
+Code for the paper Flashy Backdoor: Real-World Environment Backdoor Attack on SNNs with DVS cameras.
 
 A guide to the code is available [here](how_to.md).
 
