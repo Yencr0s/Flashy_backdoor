@@ -1,0 +1,2 @@
+Seed,Threshold,Patch_size,Trigger_length,Trigger_gap,Previous_ASR,Previous_CleanACC,Februus_ASR,Februus_CleanedACC,Februus_Rounded_ASR,Februus_Rounded_CleanedACC
+64,0.9,1.0,5,1,0.9965,0.9236,0.9965,0.8924,0.9965,0.8958

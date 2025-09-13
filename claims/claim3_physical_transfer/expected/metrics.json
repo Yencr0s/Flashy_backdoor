@@ -1,0 +1,4 @@
+{
+  "clean_acc_min": 0.65,
+  "asr_min": 0.90
+}

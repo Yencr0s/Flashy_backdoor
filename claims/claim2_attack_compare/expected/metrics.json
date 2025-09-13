@@ -1,0 +1,5 @@
+{
+  "10%_6_frames_asr_max": 0.15,
+  "30%_6_frames_asr_min": 0.95,
+  "flash_2_frames_asr_min": 0.99
+}

@@ -1,0 +1,8 @@
+{
+  "pruning_ca_min": 0.30,
+  "pruning_asr_max": 1.0,
+  "ft_ca_min": 0.80,
+  "ft_asr_max": 0.70,
+  "fp_ca_min": 0.85,
+  "fp_asr_max": 0.25
+}

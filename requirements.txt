@@ -1,9 +1,10 @@
 spikingjelly
 matplotlib
-numpy
+numpy==1.22.4
 pandas
 seaborn
 rarfile
 unrar
 scikit-image
-# cupy
+cupy-cuda12x
+tensorboard

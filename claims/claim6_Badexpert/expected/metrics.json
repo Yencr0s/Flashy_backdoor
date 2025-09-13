@@ -1,0 +1,6 @@
+{
+  "tnr": 0.95,
+  "fnr": "> abs_fnr",
+  "abs_tnr": "< tnr",
+  "abs_fnr": 0.4
+}

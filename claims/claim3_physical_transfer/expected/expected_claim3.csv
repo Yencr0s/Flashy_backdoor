@@ -1,0 +1,2 @@
+dataset,poison_rate,least,most_polarity,seed,epsilon,pos,polarity,trigger_size,trigger_label,loss,optimizer,batch_size,type,epochs,start,end,strobe_gap,strobe_on_duration,trigger_length,random,train_acc,test_acc_clean,test_acc_backdoor
+gesture,0.1,False,False,40,0.1,top-left,3,1.0,7,0.0051601063285884605,adam,16,flash,40,0,0,1,1,6,False,0.9880952380952381,0.8888888888888888,1.0

@@ -1,0 +1,2 @@
+dataset,least,most_polarity,seed,epsilon,pos,polarity,trigger_size,trigger_label,loss,optimizer,batch_size,type,epochs,start,end,strobe_gap,strobe_on_duration,trigger_length,random,train_acc,test_acc_clean,test_acc_backdoor
+gesture,False,False,43,0.1,top-left,1,0.2,7,0.047590624718439015,adam,16,static,3,10,0,1,1,5,False,0.6113945578231292,0.6701388888888888,0.1527777777777778
