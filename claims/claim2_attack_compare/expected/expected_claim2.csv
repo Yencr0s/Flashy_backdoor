@@ -1,4 +1,4 @@
 dataset,poison_rate,least,most_polarity,seed,epsilon,pos,polarity,trigger_size,trigger_label,loss,optimizer,batch_size,type,epochs,start,end,strobe_gap,strobe_on_duration,trigger_length,random,train_acc,test_acc_clean,test_acc_backdoor
-gesture,0.1,False,False,42,0.1,top-left,1,0.1,7,0.013986483073736332,adam,16,static,40,0,0,1,1,12,False,0.9209183673469388,0.8854166666666666,0.12152777777777778
-gesture,0.1,False,False,42,0.1,top-left,1,0.3,7,0.005104190955844512,adam,16,static,40,0,0,1,1,12,False,0.9889455782312925,0.90625,0.9652777777777778
-gesture,0.1,False,False,42,0.1,top-left,1,1.0,7,0.004567924152020695,adam,16,flash,40,0,0,1,1,4,False,0.9957482993197279,0.8993055555555556,1.0
+gesture,0.1,False,False,42,0.1,top-left,1,0.1,0,0.010518013249423837,adam,16,static,40,0,0,1,1,12,False,0.9523809523809523,0.8958333333333334,0.19791666666666666
+gesture,0.1,False,False,42,0.1,top-left,1,0.3,0,0.004224762309035349,adam,16,static,40,0,0,1,1,12,False,0.9931972789115646,0.8854166666666666,1.0
+gesture,0.1,False,False,42,0.1,top-left,1,1.0,0,0.006168408574359048,adam,16,flash,40,0,0,1,1,4,False,0.9872448979591837,0.8888888888888888,1.0
