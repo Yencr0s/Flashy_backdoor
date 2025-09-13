@@ -5,7 +5,8 @@ Code for the paper Flashy Backdoor: Real-World Environment Backdoor Attack on SN
 A guide to the code is available [here](how_to.md).
 
 ## Outline of the repository
-
+```text
+.
 ├── flashy_backdoor
 │   ├── LICENSE
 │   ├── README.md
@@ -72,7 +73,7 @@ A guide to the code is available [here](how_to.md).
 │   └── use.txt
 ├── requirements.txt
 └── user_reviewer.txt
-
+```
 
 ## Examples
 ### Static triggers
