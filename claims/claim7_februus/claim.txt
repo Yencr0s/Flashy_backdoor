@@ -1,0 +1,17 @@
+Claim
+-----
+The Februus defense does not significantly reduce the attack success rate (ASR) of the Flashy backdoor, although clean accuracy remains high.
+
+How this maps to the paper
+--------------------------
+Section 6.3.3 and Table 9 illustrate that, while Februus removes certain types of triggers, the Flashy backdoor is resilient, and ASR remains high despite the defense.
+
+What this script does
+--------------------
+- Runs the SNN model with the Flashy backdoor applied.
+- Applies the Februus defense during inference.
+- Records metrics including:
+    - 'clean_acc': accuracy on clean test samples
+    - 'asr': attack success rate on poisoned samples
+    - 'rounded versions': accuracy and ASR after rounding inputs to nearest integer values instead of leaving them as floats
+- Saves the metrics to 'outputs/februus_result.csv' for comparison with the expected results in 'expected/expected_februus_result.csv'.

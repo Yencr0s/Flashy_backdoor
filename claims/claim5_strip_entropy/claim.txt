@@ -1,0 +1,11 @@
+Claim
+-----
+STRIP detects poisoned inputs by producing significantly lower prediction entropy than clean inputs even for Flashy triggers.
+
+How this maps to the paper
+--------------------------
+Section 6.3.2 and Figure 8 show clear separation of entropy for clean vs poisoned inputs.
+
+What this script does
+---------------------
+- Produces a plot of entropy distributions for clean vs poisoned inputs.

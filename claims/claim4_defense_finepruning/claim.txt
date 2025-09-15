@@ -1,0 +1,13 @@
+Claim
+-----
+While pruning does not significantly reduce the ASR, it enables Fine-pruning to focus on more influential neurons, leading to a larger drop in ASR compared to fine tuning alone.
+And the additional tuning epochs in fine-pruning helps to recover clean accuracy.
+
+How this maps to the paper
+---------------------------
+Section 6.3.1 and Table 7 show that pruning followed by fine tuning yields stronger reductions in ASR than fine tuning alone in many cases.
+
+What this script does
+---------------------
+- Runs three configs representing pruning, FT and FP and writes their metrics to outputs/.
+- Produces a summary csv for easy comparison.

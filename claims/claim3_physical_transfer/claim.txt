@@ -1,0 +1,14 @@
+Claim
+-----
+A model trained with digital Flashy triggers transfers to physical DVS recordings and achieves high ASR without fine tuning with any additional physical samples.
+
+How this maps to the paper
+--------------------------
+Section 6.2 and Table 6 show up to 97.86 percent ASR on physical samples with polarity 3 and 3 flashes, with clean accuracy near the baseline.
+
+What this script does
+---------------------
+- Evaluates a trained model on a set of physical samples and reports ASR on triggered inputs and clean accuracy on clean inputs.
+- Trains on the digital samples contained in data/gesture/frames_number_16_split_by_time/train and the modified test set in data/gesture/frames_number_16_split_by_time/test which contains our physical samples.
+- Produces a summary csv for easy comparison.
+- There is a pretrained model on just the digital samples in outputs/modelphysicalbase.pth which can be used to evaluate on the physical samples without any fine tuning.

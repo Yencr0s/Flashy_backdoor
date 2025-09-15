@@ -135,6 +135,5 @@ data/
 *.pt
 *.ckpt
 
-*.txt
 *.out
 !requirements.txt

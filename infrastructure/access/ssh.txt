@@ -1,0 +1,16 @@
+SSH access for reviewers
+
+Connection
+ssh reviewer@79.112.63.201 -p 2001
+Password: R3vi3w3r_p4ss_42
+
+Scope
+- This account has access to the containerized artifact environment.
+- GPU access is available inside the container.
+
+Availability
+- The machine will be powered on and reachable during the evaluation window.
+- If connectivity issues occur, please contact the corresponding author via HotCRP.
+
+Important
+- Credentials are for ACSAC evaluation only. Please do not share them outside the reviewer team.

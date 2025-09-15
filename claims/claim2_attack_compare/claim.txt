@@ -1,0 +1,13 @@
+Claim
+-----
+The trigger size and number of poisoned frames both impact the attack success rate (ASR). Trigger size being inverselly related to the number of frames needed and being able to achieve 100% ASR with just 2 frames of a flash trigger.
+Framed, Strobing, and Flashy attacks reach high ASR, with Flashy requiring fewer frames for the same effect.
+
+How this maps to the paper
+--------------------------
+Tables 1 and 3 show the relation between trigger size and number of poisoned frames. Section 6.1.1 and 6.1.2 discuss that larger spatial coverage reduces the number of frames needed.
+
+What this script does
+---------------------
+- Runs three sizes of triggers (10%,30% and 100%) on DVS128-Gesture to compare the difference in ASR. 10% and 30% inserted in 6 frames, while 100% is inserted in just 2.
+- Produces a summary csv for easy comparison.

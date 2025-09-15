@@ -1,0 +1,31 @@
+
+Claim
+-----
+The BaDExpert defense reduces the attack success rate (ASR) for some backdoors, but the Flashy backdoor is largely able to evade detection, especially for triggers that are spatially large and temporally brief.
+
+How this maps to the paper
+--------------------------
+Section 6.3.4 and Figure 9 show that while BaDExpert can isolate backdoor behavior by thresholding the expert model’s confidence, our Flashy backdoor remains effective. Correlation analysis demonstrates that larger and shorter triggers are less likely to be detected, resulting in a reduced true positive rate (TPR) for malicious samples.
+
+What this script does
+---------------------
+- Runs the SNN model with the Flashy backdoor applied.
+- Applies the BaDExpert defense by comparing outputs between the original and expert models and thresholding the expert output confidence.
+- Logs metrics including:
+    - 'tpr': true positive rate of detected poisoned inputs
+    - 'tnr': true negative rate of clean samples
+    - 'fpr': false positive rate of a clean sample detected as poisoned
+    - 'fnr': false negative rate of undetected poisoned inputs
+- Saves metrics to 'outputs/claim6.csv' for comparison with the expected results in 'expected/expected_claim6.csv'.
+
+Reproducibility note
+-------------------
+Some numerical results may vary significantly between machines. In our tests, training on an NVIDIA A100 GPU produces different absolute accuracy values compared to training on an RTX 5090, even with identical seeds, code, and data. These differences arise primarily due to:
+
+- Hardware architecture differences between GPUs (Ampere vs Ada Lovelace).  
+- Different CUDA/cuDNN versions and associated kernel implementations.  
+- Tensor core behavior and TF32 precision variations, which slightly alter floating-point computations.  
+- Minor differences in multi-threaded data loading and other non-deterministic GPU operations.
+
+Despite these variations in absolute accuracy, the relative trends and conclusions drawn in the paper remain consistent across different hardware setups.
+

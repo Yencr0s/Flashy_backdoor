@@ -1,0 +1,24 @@
+Intended Use
+============
+This artifact is for research and reproducibility of an academic paper on the security of spiking neural networks and DVS cameras.
+
+Limitations and Safety
+----------------------
+- The code and scripts can train and evaluate models that include backdoor triggers. Use only for research and defense evaluation.
+- Do not deploy backdoored models in production or safety critical systems.
+
+
+Data Use
+--------
+- The included physical data subset, is for research use only.
+
+Reproducibility note
+--------------------
+Some numerical results may vary significantly between machines. In our tests, training on an NVIDIA A100 GPU produces different absolute accuracy values compared to training on an RTX 5090, even with identical seeds, code, and data. These differences arise primarily due to:
+
+- Hardware architecture differences between GPUs (Ampere vs Ada Lovelace).  
+- Different CUDA/cuDNN versions and associated kernel implementations.  
+- Tensor core behavior and TF32 precision variations, which slightly alter floating-point computations.  
+- Minor differences in multi-threaded data loading and other non-deterministic GPU operations.
+
+Despite these variations in absolute accuracy, the relative trends and conclusions drawn in the paper remain consistent across different hardware setups.
