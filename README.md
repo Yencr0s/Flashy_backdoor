@@ -79,30 +79,27 @@ A guide to the code is available [here](how_to.md).
 ### Static triggers
 |      Polarity 0        |      Polarity 1          |      Polarity 2          |      Polarity 3          |
 |---	|---	|---	|---	|
-
 |![static](./artifact/figures/static_0.gif) | ![static](./artifact/figures/static_1.gif) 	| ![static](./artifact/figures/static_2.gif) 	| ![static](./artifact/figures/static_full.gif) 	|
 
 ### Framed triggers
 |      Polarity 0        |      Polarity 1          |      Polarity 2          |      Polarity 3          |
 |---	|---	|---	|---	|
-
 |![static](./artifact/figures/framed_0.gif) | ![static](./artifact/figures/framed_1.gif) 	| ![static](./artifact/figures/framed_2.gif) 	| ![static](./artifact/figures/framed.gif) 	|
 
 ### Strobing triggers
 |      Polarity 0        |      Polarity 1          |      Polarity 2          |      Polarity 3          |
 |---	|---	|---	|---	|
-
 |![static](./artifact/figures/strobe_0.gif) | ![static](./artifact/figures/strobe_1.gif) 	| ![static](./artifact/figures/strobe_2.gif) 	| ![static](./artifact/figures/strobing.gif) 	|
+
 ### Flashy triggers
 |      Polarity 0        |      Polarity 1          |      Polarity 2          |      Polarity 3          |
 |---	|---	|---	|---	|
-
 |![static](./artifact/figures/flash_0.gif) | ![static](./artifact/figures/flash_1.gif) 	| ![static](./artifact/figures/flash_2.gif) 	| ![static](./artifact/figures/flash.gif) 	|
+
 #### Physical environment
 
 |       Clean           |      Flashlight Trigger         |       Laser Pointer Trigger          |
 |------------------	|---	|---	|
-
 | ![clean image](./artifact/figures/clean_real.gif) 	|  ![flashlight](./artifact/figures/flashlight.gif) | ![laser_pointer](./artifact/figures/laser.gif) 	|
 
 
@@ -110,13 +107,9 @@ A guide to the code is available [here](how_to.md).
 ### Clean model
 |      Sample          |      Target class         |      Layer 1         |       Layer 2          |       Layer 3          |       Layer 4          |
 |------------------	|--- |---	|---	|---	|---	|
-
 |   Clean 	  |   Real 	      |  ![clean](./artifact/figures/GradCam/no_clean_c0_l1.gif) | ![clean](./artifact/figures/GradCam/no_clean_c0_l2.gif) 	| ![clean](./artifact/figures/GradCam/no_clean_c0_l3.gif) 	| ![clean](./artifact/figures/GradCam/no_clean_c0_l4.gif) 	|
-
 |   Clean 	  |   Backdoor 	  |  ![clean](./artifact/figures/GradCam/no_clean_c7_l1.gif) | ![clean](./artifact/figures/GradCam/no_clean_c7_l2.gif) 	| ![clean](./artifact/figures/GradCam/no_clean_c7_l3.gif) 	| ![clean](./artifact/figures/GradCam/no_clean_c7_l4.gif) 	|
-
 |   Poisoned 	|   Real 	      |  ![clean](./artifact/figures/GradCam/start_clean_c0_l1.gif) | ![clean](./artifact/figures/GradCam/start_clean_c0_l2.gif) 	| ![clean](./artifact/figures/GradCam/start_clean_c0_l3.gif) 	| ![clean](./artifact/figures/GradCam/start_clean_c0_l4.gif) 	|
-
 |   Poisoned 	|   Backdoor 	  |  ![clean](./artifact/figures/GradCam/start_clean_c7_l1.gif) | ![clean](./artifact/figures/GradCam/start_clean_c7_l2.gif) 	| ![clean](./artifact/figures/GradCam/start_clean_c7_l3.gif) 	| ![clean](./artifact/figures/GradCam/start_clean_c7_l4.gif) 	|
 
 
@@ -124,15 +117,10 @@ A guide to the code is available [here](how_to.md).
 
 ### Backdoored model
 |      Sample          |      Target class         |      Layer 1         |       Layer 2          |       Layer 3          |       Layer 4          |
-
 |------------------	|--- |---	|---	|---	|---	|
-
 |   Clean 	  |   Real 	      |  ![clean](./artifact/figures/GradCam/no_trigger_c0_l1.gif) | ![clean](./artifact/figures/GradCam/no_trigger_c0_l2.gif) 	| ![clean](./artifact/figures/GradCam/no_trigger_c0_l3.gif) 	| ![clean](./artifact/figures/GradCam/no_trigger_c0_l4.gif) 	|
-
 |   Clean 	  |   Backdoor 	  |  ![clean](./artifact/figures/GradCam/no_trigger_c7_l1.gif) | ![clean](./artifact/figures/GradCam/no_trigger_c7_l2.gif) 	| ![clean](./artifact/figures/GradCam/no_trigger_c7_l3.gif) 	| ![clean](./artifact/figures/GradCam/no_trigger_c7_l4.gif) 	|
-
 |   Poisoned 	|   Real 	      |  ![clean](./artifact/figures/GradCam/start_trigger_c0_l1.gif) | ![clean](./artifact/figures/GradCam/start_trigger_c0_l2.gif) 	| ![clean](./artifact/figures/GradCam/start_trigger_c0_l3.gif) 	| ![clean](./artifact/figures/GradCam/start_trigger_c0_l4.gif) 	|
-
 |   Poisoned 	|   Backdoor 	  |  ![clean](./artifact/figures/GradCam/start_trigger_c7_l1.gif) | ![clean](./artifact/figures/GradCam/start_trigger_c7_l2.gif) 	| ![clean](./artifact/figures/GradCam/start_trigger_c7_l3.gif) 	| ![clean](./artifact/figures/GradCam/start_trigger_c7_l4.gif) 	|
 
 
