@@ -1,7 +1,7 @@
 SSH access for reviewers
 
 Connection
-ssh reviewer@79.112.63.201 -p 2001
+ssh reviewer@acsacartifactreview.ddns.net -p 2001
 Password: R3vi3w3r_p4ss_42
 
 Scope

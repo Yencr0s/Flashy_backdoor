@@ -1,13 +1,14 @@
 Access for reviewers
 
 SSH details
-Host: 79.112.63.201
+Host: acsacartifactreview.ddns.net
 Port: 2001
 User: reviewer
 Password: R3vi3w3r_p4ss_42
 
 Scope
 The SSH account has access to the artifact directory and Docker. Evaluators can run:
+ssh reviewer@acsacartifactreview.ddns.net -p 2001
 
 bash install.sh
 bash claims/claim1_flashy_dvs128/run.sh
